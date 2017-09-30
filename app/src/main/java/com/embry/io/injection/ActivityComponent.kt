@@ -1,6 +1,6 @@
-package com.noni.au.app.kotlintodosampleapp.injection
+package com.embry.io.injection;
 
-import com.noni.au.app.kotlintodosampleapp.presentation.view.activities.MainActivity
+import com.embry.io.presentation.view.activities.MainActivity
 import dagger.Component
 
 @PerScreen

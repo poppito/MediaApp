@@ -1,9 +1,9 @@
-package com.noni.au.app.kotlintodosampleapp.app
+package com.embry.io.app;
 
 import android.app.Application
-import com.noni.au.app.kotlintodosampleapp.injection.AppComponent
-import com.noni.au.app.kotlintodosampleapp.injection.AppModule
-import com.noni.au.app.kotlintodosampleapp.injection.DaggerAppComponent
+import com.embry.io.injection.AppComponent
+import com.embry.io.injection.AppModule
+import com.embry.io.injection.DaggerAppComponent
 
 class Casterly : Application() {
 

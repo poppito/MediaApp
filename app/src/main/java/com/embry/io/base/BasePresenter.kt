@@ -1,4 +1,4 @@
-package com.noni.au.app.kotlintodosampleapp.base
+package com.embry.io.base
 
 open abstract class BasePresenter<T:Any> {
 

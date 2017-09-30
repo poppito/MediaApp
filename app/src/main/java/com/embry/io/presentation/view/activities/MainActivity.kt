@@ -1,11 +1,12 @@
-package com.noni.au.app.kotlintodosampleapp.presentation.view.activities
+package com.embry.io.presentation.view.activities;
+
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import com.noni.au.app.kotlintodosampleapp.R
-import com.noni.au.app.kotlintodosampleapp.app.Casterly
-import com.noni.au.app.kotlintodosampleapp.injection.ActivityModule
-import com.noni.au.app.kotlintodosampleapp.injection.DaggerActivityComponent
+import com.embry.io.R
+import com.embry.io.app.Casterly
+import com.embry.io.injection.ActivityModule
+import com.embry.io.injection.DaggerActivityComponent
 
 class MainActivity : AppCompatActivity() {
 

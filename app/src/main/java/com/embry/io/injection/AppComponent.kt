@@ -1,6 +1,6 @@
-package com.noni.au.app.kotlintodosampleapp.injection
+package com.embry.io.injection;
 
-import com.noni.au.app.kotlintodosampleapp.app.Casterly
+import com.embry.io.app.Casterly
 import dagger.Component
 import javax.inject.Singleton
 

@@ -1,4 +1,4 @@
-package com.noni.au.app.kotlintodosampleapp.injection
+package com.embry.io.injection
 
 import javax.inject.Scope
 
