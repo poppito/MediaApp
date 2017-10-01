@@ -7,13 +7,20 @@ import com.embry.io.R
 import com.embry.io.app.Casterly
 import com.embry.io.injection.ActivityModule
 import com.embry.io.injection.DaggerActivityComponent
+import com.embry.io.presentation.view.presenters.MainPresenter
+import com.embry.io.presentation.view.presenters.MainPresenter.MainViewSurface
+import javax.inject.Inject
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), MainViewSurface {
+
+    @Inject
+    lateinit var mPresenter : MainPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         inject()
+        mPresenter.onStart(this)
     }
 
     private fun inject() {
