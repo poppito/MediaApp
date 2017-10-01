@@ -9,18 +9,20 @@ import com.embry.io.injection.ActivityModule
 import com.embry.io.injection.DaggerActivityComponent
 import com.embry.io.presentation.view.presenters.MainPresenter
 import com.embry.io.presentation.view.presenters.MainPresenter.MainViewSurface
+import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), MainViewSurface {
 
     @Inject
-    lateinit var mPresenter : MainPresenter
+    lateinit var mPresenter: MainPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         inject()
         mPresenter.onStart(this)
+        initialiseToolbar()
     }
 
     private fun inject() {
@@ -30,5 +32,9 @@ class MainActivity : AppCompatActivity(), MainViewSurface {
                 .activityModule(ActivityModule(this))
                 .build()
                 .inject(this)
+    }
+
+    private fun initialiseToolbar() {
+        setSupportActionBar(toolbar_main)
     }
 }
