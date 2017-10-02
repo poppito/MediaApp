@@ -1,4 +1,4 @@
-package com.embry.io.presentation.view.presenters;
+package com.embry.io.presentation.presenters;
 
 
 import com.embry.io.base.BasePresenter

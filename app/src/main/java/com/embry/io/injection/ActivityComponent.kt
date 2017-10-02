@@ -1,6 +1,6 @@
 package com.embry.io.injection;
 
-import com.embry.io.presentation.view.activities.MainActivity
+import com.embry.io.presentation.activities.MainActivity
 import dagger.Component
 
 @PerScreen

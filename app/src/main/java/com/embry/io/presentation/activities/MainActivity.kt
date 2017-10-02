@@ -1,4 +1,4 @@
-package com.embry.io.presentation.view.activities;
+package com.embry.io.presentation.activities;
 
 
 import android.os.Bundle
@@ -13,8 +13,8 @@ import com.embry.io.R
 import com.embry.io.app.Casterly
 import com.embry.io.injection.ActivityModule
 import com.embry.io.injection.DaggerActivityComponent
-import com.embry.io.presentation.view.presenters.MainPresenter
-import com.embry.io.presentation.view.presenters.MainPresenter.MainViewSurface
+import com.embry.io.presentation.presenters.MainPresenter
+import com.embry.io.presentation.presenters.MainPresenter.MainViewSurface
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
