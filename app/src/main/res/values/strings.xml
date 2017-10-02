@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Casterly</string>
     <string name="title_activity_main">Your Media List</string>
+
+    <!--- main activity menu -->
+    <string name="txt_cast">Cast</string>
+    <string name="txt_cast_disconnect">Disconnect from Cast</string>
 </resources>

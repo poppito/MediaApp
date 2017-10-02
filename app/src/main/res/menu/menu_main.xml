@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/item_menu_main_cast"
+        android:icon="@drawable/ic_cast_black_24px"
+        android:title="@string/txt_cast"
+        app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/ic_main_cast_connected"
+        android:visible="false"
+        android:icon="@drawable/ic_cast_connected_black_24px"
+        android:title="@string/txt_cast_disconnect"
+        app:showAsAction="ifRoom"/>
+</menu>

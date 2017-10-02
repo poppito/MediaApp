@@ -43,6 +43,26 @@ class MainActivity : AppCompatActivity(), MainViewSurface {
         runCIFS()
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when (item?.itemId) {
+            R.id.item_menu_main_cast -> {
+                return true
+            }
+            else -> {
+                return true
+            }
+        }
+    }
+
+    //end region
+
+    //region private
+
     private fun inject() {
         val app = application as Casterly
         DaggerActivityComponent.builder()
@@ -67,6 +87,7 @@ class MainActivity : AppCompatActivity(), MainViewSurface {
     }
 
     private fun initialiseRecyclerView() {
+        view_recycler_playables.setHasFixedSize(true)
         mLayoutManager = LinearLayoutManager(this)
     }
 
