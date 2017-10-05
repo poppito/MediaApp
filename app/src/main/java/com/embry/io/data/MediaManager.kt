@@ -17,4 +17,8 @@ class MediaManager: MediaRepository {
     override fun getSourceByName(name: String) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
+
+    override fun addASource() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 }

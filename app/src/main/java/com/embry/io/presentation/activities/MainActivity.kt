@@ -80,7 +80,7 @@ class MainActivity : AppCompatActivity(), MainViewSurface {
     }
 
     private fun initialiseDrawerLayout() {
-        actionBarDrawerToggle = ActionBarDrawerToggle(this, drawer_layout, toolbar_main, R.string.title_activity_main, R.string.title_activity_main)
+        actionBarDrawerToggle = ActionBarDrawerToggle(this, drawer_layout, toolbar_main, R.string.title_drawer_open, R.string.title_activity_main)
         val adapter = ArrayAdapter(this, R.layout.list_item_drawer, mDrawerItems)
         list_drawer.adapter = adapter
         drawer_layout.addDrawerListener(actionBarDrawerToggle!!)

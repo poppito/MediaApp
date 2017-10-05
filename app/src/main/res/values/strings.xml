@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Casterly</string>
     <string name="title_activity_main">Your Media List</string>
+    <string name="title_drawer_open">Your Media sources</string>
 
     <!--- main activity menu -->
     <string name="txt_cast">Cast</string>

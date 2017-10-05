@@ -8,4 +8,5 @@ package com.embry.io.domain
 interface MediaRepository {
     fun getSourceByName(name: String)
     fun getAllRepos()
+    fun addASource()
 }
