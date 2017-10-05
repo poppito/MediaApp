@@ -4,6 +4,10 @@ package com.embry.io.presentation.view.activities;
 import android.os.Bundle
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.ArrayAdapter
 import com.embry.io.R
 import com.embry.io.app.Casterly
@@ -14,7 +18,6 @@ import com.embry.io.presentation.view.presenters.MainPresenter.MainViewSurface
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
-
 class MainActivity : AppCompatActivity(), MainViewSurface {
 
     @Inject
@@ -24,6 +27,11 @@ class MainActivity : AppCompatActivity(), MainViewSurface {
 
     private var actionBarDrawerToggle : ActionBarDrawerToggle? = null
 
+    private var mLayoutManager: RecyclerView.LayoutManager? = null
+
+    private val MOUNT_POINT = "mount/"
+
+    // region lifecycle
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -31,6 +39,8 @@ class MainActivity : AppCompatActivity(), MainViewSurface {
         mPresenter.onStart(this)
         initialiseToolbar()
         initialiseDrawerLayout()
+        initialiseRecyclerView()
+        runCIFS()
     }
 
     private fun inject() {
@@ -51,7 +61,18 @@ class MainActivity : AppCompatActivity(), MainViewSurface {
 
     private fun initialiseDrawerLayout() {
         actionBarDrawerToggle = ActionBarDrawerToggle(this, drawer_layout, toolbar_main, R.string.title_activity_main, R.string.title_activity_main)
-        list_drawer.adapter = ArrayAdapter(this, R.layout.list_item_drawer, mDrawerItems)
+        val adapter = ArrayAdapter(this, R.layout.list_item_drawer, mDrawerItems)
+        list_drawer.adapter = adapter
         drawer_layout.addDrawerListener(actionBarDrawerToggle!!)
     }
+
+    private fun initialiseRecyclerView() {
+        mLayoutManager = LinearLayoutManager(this)
+    }
+
+
+    private fun runCIFS() {
+    }
+
+    //end region
 }
