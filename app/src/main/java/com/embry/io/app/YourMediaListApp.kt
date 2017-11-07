@@ -5,7 +5,7 @@ import com.embry.io.injection.AppComponent
 import com.embry.io.injection.AppModule
 import com.embry.io.injection.DaggerAppComponent
 
-class Casterly : Application() {
+class YourMediaList : Application() {
 
     lateinit var mAppComponent: AppComponent
 

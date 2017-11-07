@@ -6,4 +6,14 @@
     <!--- main activity menu -->
     <string name="txt_cast">Cast</string>
     <string name="txt_cast_disconnect">Disconnect from Cast</string>
+
+
+    <!-- launcher activity -->
+    <string name="btn_add_server">Add</string>
+    <string name="title_dialog_add_server">Add a NAS server</string>
+    <string name="text_hint_server_ip">server ip address</string>
+    <string name="text_hint_usernmae">username</string>
+    <string name="text_hint_password">password</string>
+    <string name="activity_launcher_title">Add a server</string>
+    <string name="txt_add_server">No NAS servers found. Please add one to get started. </string>
 </resources>

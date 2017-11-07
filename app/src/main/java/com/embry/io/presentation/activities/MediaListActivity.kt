@@ -10,26 +10,24 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.ArrayAdapter
 import com.embry.io.R
-import com.embry.io.app.Casterly
+import com.embry.io.app.YourMediaList
 import com.embry.io.injection.ActivityModule
 import com.embry.io.injection.DaggerActivityComponent
-import com.embry.io.presentation.presenters.MainPresenter
-import com.embry.io.presentation.presenters.MainPresenter.MainViewSurface
+import com.embry.io.presentation.presenters.MediaListPresenter
+import com.embry.io.presentation.presenters.MediaListPresenter.MainViewSurface
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
-class MainActivity : AppCompatActivity(), MainViewSurface {
+class MediaListActivity : AppCompatActivity(), MainViewSurface {
 
     @Inject
-    lateinit var mPresenter: MainPresenter
+    lateinit var mPresenter: MediaListPresenter
 
     private val mDrawerItems = listOf("A", "B", "C", "D")
 
     private var actionBarDrawerToggle : ActionBarDrawerToggle? = null
 
     private var mLayoutManager: RecyclerView.LayoutManager? = null
-
-    private val MOUNT_POINT = "mount/"
 
     // region lifecycle
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,7 +38,6 @@ class MainActivity : AppCompatActivity(), MainViewSurface {
         initialiseToolbar()
         initialiseDrawerLayout()
         initialiseRecyclerView()
-        runCIFS()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -64,7 +61,7 @@ class MainActivity : AppCompatActivity(), MainViewSurface {
     //region private
 
     private fun inject() {
-        val app = application as Casterly
+        val app = application as YourMediaList
         DaggerActivityComponent.builder()
                 .appComponent(app.mAppComponent)
                 .activityModule(ActivityModule(this))
@@ -89,10 +86,6 @@ class MainActivity : AppCompatActivity(), MainViewSurface {
     private fun initialiseRecyclerView() {
         view_recycler_playables.setHasFixedSize(true)
         mLayoutManager = LinearLayoutManager(this)
-    }
-
-
-    private fun runCIFS() {
     }
 
     //end region
