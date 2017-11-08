@@ -52,6 +52,8 @@ class LauncherActivity : AppCompatActivity(), LaunchPresenter.LauncherViewSurfac
                 .setView(R.layout.dialog_add_server)
                 .setPositiveButton(R.string.btn_add_server) {
                     _,_ ->
+
+                    //validate views first
                 }
                 .create()
                 .show()
