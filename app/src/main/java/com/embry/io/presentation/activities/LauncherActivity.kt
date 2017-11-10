@@ -8,8 +8,11 @@ import com.embry.io.app.YourMediaList
 import com.embry.io.injection.ActivityModule
 import com.embry.io.injection.DaggerActivityComponent
 import com.embry.io.presentation.presenters.LaunchPresenter
+import jcifs.smb.NtlmPasswordAuthentication
+import jcifs.smb.SmbFile
 import kotlinx.android.synthetic.main.activity_launcher.*
 import javax.inject.Inject
+
 
 /**
  * Activity representing launch
@@ -50,13 +53,25 @@ class LauncherActivity : AppCompatActivity(), LaunchPresenter.LauncherViewSurfac
         AlertDialog.Builder(this)
                 .setTitle("Add a media server")
                 .setView(R.layout.dialog_add_server)
-                .setPositiveButton(R.string.btn_add_server) {
-                    _,_ ->
+                .setPositiveButton(R.string.btn_add_server) { _, _ ->
 
                     //validate views first
                 }
                 .create()
                 .show()
+    }
+
+
+    //endregion
+
+    //region private
+
+    fun addServer(ip: String, username: String, password: String) : Array<SmbFile> {
+        val path = "smb://" + ip
+        val auth = NtlmPasswordAuthentication(null, username, password)
+        val dir = SmbFile(path, auth)
+
+        return dir.listFiles()
     }
 
     //endregion

@@ -9,7 +9,7 @@ import android.arch.persistence.room.RoomDatabase
  * of the ToDoList Db.
  * @author harshoverseer
  */
-@Database(entities = arrayOf(MediaSource::class), version = 1)
+@Database(entities = arrayOf(MediaServer::class), version = 1)
 abstract class MediaSourceDb : RoomDatabase() {
     abstract fun toDoDao(): MediaSourceDao
 }

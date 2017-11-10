@@ -5,9 +5,7 @@ import java.net.URI
 /** Pretty self explanatory.
  * @author harshoverseer
  */
-data class MediaSource(private val uri: URI,
+data class MediaServer(private val uri: URI,
                        private val username:String,
                        private val password:String,
-                       private val domain : String,
-                       private val title: String) {
-}
+                       private val name: String)

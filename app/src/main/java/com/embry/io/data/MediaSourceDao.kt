@@ -15,14 +15,14 @@ import android.arch.persistence.room.Query
 interface MediaSourceDao {
 
     @Insert
-    fun insertItem(item: MediaSource)
+    fun insertItem(item: MediaServer)
 
     @Delete
-    fun deleteItem(item: MediaSource)
+    fun deleteItem(item: MediaServer)
 
     @Query("SELECT * from todoitems WHERE title LIKE :p0")
-    fun getMediaSourceByUri(title: String): MediaSource
+    fun getMediaSourceByUri(title: String): MediaServer
 
     @Query("SELECT * from todoitems")
-    fun getAllMediaSources() : List<MediaSource>
+    fun getAllMediaSources() : List<MediaServer>
 }
