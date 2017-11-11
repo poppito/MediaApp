@@ -18,7 +18,7 @@ class LaunchPresenter @Inject constructor(val launcherUsecases: LauncherUsecases
     }
 
     fun handleAddServerButtonClick() {
-        mView.showAddServerDialog()
+        mView.navigateToAddServerDialog()
     }
 
     fun handleAddDialogButtonClick(ip: String,
@@ -33,6 +33,6 @@ class LaunchPresenter @Inject constructor(val launcherUsecases: LauncherUsecases
     }
 
     interface LauncherViewSurface {
-        fun showAddServerDialog()
+        fun navigateToAddServerDialog()
     }
 }

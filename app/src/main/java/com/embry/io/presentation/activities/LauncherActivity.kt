@@ -1,7 +1,7 @@
 package com.embry.io.presentation.activities
 
+import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import com.embry.io.R
 import com.embry.io.app.YourMediaList
@@ -13,7 +13,6 @@ import jcifs.smb.SmbFile
 import kotlinx.android.synthetic.main.activity_launcher.*
 import javax.inject.Inject
 
-
 /**
  * Activity representing launch
  * screen.
@@ -22,6 +21,10 @@ class LauncherActivity : AppCompatActivity(), LaunchPresenter.LauncherViewSurfac
 
     @Inject
     lateinit var mPresenter: LaunchPresenter
+
+    private val path = "smb://"
+
+    private val RESULT_ADD_SERVER = 9001
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,24 +52,15 @@ class LauncherActivity : AppCompatActivity(), LaunchPresenter.LauncherViewSurfac
 
     //region viewsurface
 
-    override fun showAddServerDialog() {
-        AlertDialog.Builder(this)
-                .setTitle("Add a media server")
-                .setView(R.layout.dialog_add_server)
-                .setPositiveButton(R.string.btn_add_server) { _, _ ->
-
-                    //validate views first
-                }
-                .create()
-                .show()
+    override fun navigateToAddServerDialog() {
+        startActivityForResult(Intent(this, AddServerActivity::class.java), RESULT_ADD_SERVER)
     }
-
 
     //endregion
 
     //region private
 
-    fun addServer(ip: String, username: String, password: String) : Array<SmbFile> {
+    fun addServer(ip: String, username: String, password: String): Array<SmbFile> {
         val path = "smb://" + ip
         val auth = NtlmPasswordAuthentication(null, username, password)
         val dir = SmbFile(path, auth)
@@ -75,4 +69,5 @@ class LauncherActivity : AppCompatActivity(), LaunchPresenter.LauncherViewSurfac
     }
 
     //endregion
+
 }
