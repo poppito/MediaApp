@@ -10,7 +10,7 @@ import jcifs.smb.SmbFile
  * @author harshoverseer
  */
 interface MediaServerRepo {
-    fun addMediaServer(name: String, address: String, username: String, password: String) : Observable<Array<SmbFile>>
+    fun addMediaServer(ip: String, username: String, password: String, name: String) : Observable<Array<SmbFile>>
     fun getAllMediaServers()
     fun removeMediaServer(name: String)
 }

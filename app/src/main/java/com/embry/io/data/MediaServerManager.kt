@@ -13,8 +13,8 @@ import jcifs.smb.SmbFile
  * @author harshoverseer
  */
 class MediaServerManager : MediaServerRepo {
-    override fun addMediaServer(name: String, address: String, username: String, password: String): Observable<Array<SmbFile>> {
-        val path = "smb://" + address
+    override fun addMediaServer(ip: String, username: String, password: String, name: String): Observable<Array<SmbFile>> {
+        val path = "smb://" + ip
         val auth = NtlmPasswordAuthentication(null, username, password)
         val dir = SmbFile(path, auth)
         return Observable.fromCallable {

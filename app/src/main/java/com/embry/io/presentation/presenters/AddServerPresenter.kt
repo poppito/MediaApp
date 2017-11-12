@@ -25,9 +25,12 @@ class AddServerPresenter @Inject constructor(val mediaServerRepo: MediaServerRep
 
 
     fun handleAddServerButtonClick(ip: String, username: String, password: String, name: String) {
-        mVerifyDisposable = mediaServerRepo.addMediaServer(name, ip, username, password)
+        mVerifyDisposable = mediaServerRepo.addMediaServer(ip, username, password, name)
                 .subscribe(
-                        { it.forEach { Log.v("TAG", it.name.toString()) }
+                        {
+                            it.forEach {
+                                Log.v("TAG", it.name.toString())
+                            }
 
                         },
                         {

@@ -39,10 +39,10 @@ class AddServerActivity : AppCompatActivity(), AddServerPresenter.ViewSurface, T
         mPresenter.onStart(this)
 
         btn_dialog_add_server?.setOnClickListener {
-            mPresenter.handleAddServerButtonClick(et_server_name?.text?.toString()!!,
-                    et_server_ip?.text?.toString()!!,
+            mPresenter.handleAddServerButtonClick(et_server_ip?.text?.toString()!!,
                     et_server_username?.text?.toString()!!,
-                    et_server_password?.text?.toString()!!)
+                    et_server_password?.text?.toString()!!,
+                    et_server_name?.text?.toString()!!)
         }
     }
 
