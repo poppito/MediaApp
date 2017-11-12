@@ -38,13 +38,14 @@ class AddServerActivity : AppCompatActivity(), AddServerPresenter.ViewSurface, T
 
         mPresenter.onStart(this)
 
-        btn_dialog_add_server?.setOnClickListener { mPresenter.handleAddServerButtonClick() }
+        btn_dialog_add_server?.setOnClickListener {
+            mPresenter.handleAddServerButtonClick(et_server_name?.text?.toString()!!,
+                    et_server_ip?.text?.toString()!!,
+                    et_server_username?.text?.toString()!!,
+                    et_server_password?.text?.toString()!!)
+        }
     }
 
-
-    override fun addServer() {
-
-    }
 
     override fun afterTextChanged(s: Editable?) {
         if (s?.hashCode() == et_server_ip.text.hashCode()) {
@@ -76,7 +77,6 @@ class AddServerActivity : AppCompatActivity(), AddServerPresenter.ViewSurface, T
     //region private
 
     fun inject() {
-
         val app = application as YourMediaList
 
         DaggerActivityComponent.builder()

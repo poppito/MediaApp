@@ -1,5 +1,6 @@
 package com.embry.io.presentation.activities
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -8,8 +9,6 @@ import com.embry.io.app.YourMediaList
 import com.embry.io.injection.ActivityModule
 import com.embry.io.injection.DaggerActivityComponent
 import com.embry.io.presentation.presenters.LaunchPresenter
-import jcifs.smb.NtlmPasswordAuthentication
-import jcifs.smb.SmbFile
 import kotlinx.android.synthetic.main.activity_launcher.*
 import javax.inject.Inject
 
@@ -32,6 +31,14 @@ class LauncherActivity : AppCompatActivity(), LaunchPresenter.LauncherViewSurfac
         inject()
         mPresenter.onStart(this)
         btn_add_server.setOnClickListener { mPresenter.handleAddServerButtonClick() }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == RESULT_ADD_SERVER) {
+            if (resultCode == Activity.RESULT_OK) {
+
+            }
+        }
     }
 
 
@@ -59,14 +66,6 @@ class LauncherActivity : AppCompatActivity(), LaunchPresenter.LauncherViewSurfac
     //endregion
 
     //region private
-
-    fun addServer(ip: String, username: String, password: String): Array<SmbFile> {
-        val path = "smb://" + ip
-        val auth = NtlmPasswordAuthentication(null, username, password)
-        val dir = SmbFile(path, auth)
-
-        return dir.listFiles()
-    }
 
     //endregion
 
