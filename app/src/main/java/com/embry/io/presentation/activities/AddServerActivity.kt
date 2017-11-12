@@ -18,16 +18,21 @@ import javax.inject.Inject
 class AddServerActivity : AppCompatActivity(), AddServerPresenter.ViewSurface, TextWatcher {
 
     @Inject
-    lateinit var mPresenter : AddServerPresenter
+    lateinit var mPresenter: AddServerPresenter
+
+    private var ipFilled = false
+    private var usernameFilled = false
+    private var passwordFilled = false
+    private var nameFilled = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_server)
 
         et_server_ip.addTextChangedListener(this)
-        et_server_username?.addTextChangedListener(this)
-        et_server_name?.addTextChangedListener(this)
-        et_server_password?.addTextChangedListener(this)
+        et_server_username.addTextChangedListener(this)
+        et_server_name.addTextChangedListener(this)
+        et_server_password.addTextChangedListener(this)
 
         inject()
 
@@ -42,7 +47,21 @@ class AddServerActivity : AppCompatActivity(), AddServerPresenter.ViewSurface, T
     }
 
     override fun afterTextChanged(s: Editable?) {
+        if (s?.hashCode() == et_server_ip.text.hashCode()) {
+            ipFilled = if (s.isNotEmpty()) true else false
+        }
+        if (s?.hashCode() == et_server_name.text.hashCode()) {
+            nameFilled = if (s.isNotEmpty()) true else false
+        }
+        if (s?.hashCode() == et_server_username.text.hashCode()) {
+            usernameFilled = if (s.isNotEmpty()) true else false
+        }
+        if (s?.hashCode() == et_server_password.text.hashCode()) {
+            passwordFilled = if (s.isNotEmpty()) true else false
+        }
 
+        btn_dialog_add_server.isEnabled =
+                if (ipFilled && nameFilled && usernameFilled && passwordFilled) true else false
     }
 
     override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
