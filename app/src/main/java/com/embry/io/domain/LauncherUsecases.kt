@@ -8,6 +8,6 @@ import javax.inject.Inject
 class LauncherUsecases @Inject constructor(val mediaServerRepo: MediaServerRepo) {
 
     fun addMediaServer(address: String, username: String, password: String, name: String) {
-        mediaServerRepo.addMediaServer(address, username, password, name)
+        mediaServerRepo.addServer(address, username, password, name)
     }
 }

@@ -36,7 +36,23 @@ class LauncherActivity : AppCompatActivity(), LaunchPresenter.LauncherViewSurfac
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == RESULT_ADD_SERVER) {
             if (resultCode == Activity.RESULT_OK) {
-
+                var ip  = ""
+                var username = ""
+                var password = ""
+                var name = ""
+                if (data?.getStringExtra(AddServerActivity.RESULT_IP) != null) {
+                    ip = data.getStringExtra(AddServerActivity.RESULT_IP)
+                }
+                if (data?.getStringExtra(AddServerActivity.RESULT_USERNAME) != null) {
+                    username = data.getStringExtra(AddServerActivity.RESULT_USERNAME)
+                }
+                if (data?.getStringExtra(AddServerActivity.RESULT_PASSWORD) != null) {
+                    password = data.getStringExtra(AddServerActivity.RESULT_PASSWORD)
+                }
+                if (data?.getStringExtra(AddServerActivity.RESULT_NAME) != null) {
+                    name = data.getStringExtra(AddServerActivity.RESULT_NAME)
+                }
+                mPresenter.handleServerAdd(ip, username, password, name)
             }
         }
     }

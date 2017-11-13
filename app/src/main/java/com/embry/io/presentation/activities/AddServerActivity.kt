@@ -1,5 +1,7 @@
 package com.embry.io.presentation.activities
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.text.Editable
@@ -11,6 +13,8 @@ import com.embry.io.injection.DaggerActivityComponent
 import com.embry.io.presentation.presenters.AddServerPresenter
 import kotlinx.android.synthetic.main.activity_add_server.*
 import javax.inject.Inject
+
+
 
 /**
  * add a server if required.
@@ -24,6 +28,16 @@ class AddServerActivity : AppCompatActivity(), AddServerPresenter.ViewSurface, T
     private var usernameFilled = false
     private var passwordFilled = false
     private var nameFilled = false
+
+
+
+
+    companion object {
+        val RESULT_IP = "ip"
+        val RESULT_USERNAME = "username"
+        val RESULT_PASSWORD = "password"
+        val RESULT_NAME = "name"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,12 +80,24 @@ class AddServerActivity : AppCompatActivity(), AddServerPresenter.ViewSurface, T
     }
 
     override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-
     }
 
     override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
     }
+
+    //region viewsurface
+
+    override fun navigateToLauncherWithSuccess(ip: String, username: String, password: String, name: String) {
+        val returnIntent = Intent()
+        returnIntent.putExtra(RESULT_IP, ip)
+        returnIntent.putExtra(RESULT_USERNAME, username)
+        returnIntent.putExtra(RESULT_PASSWORD, password)
+        returnIntent.putExtra(RESULT_NAME, name)
+        setResult(Activity.RESULT_OK, returnIntent)
+        finish()
+    }
+
+    //endregion
 
 
     //region private

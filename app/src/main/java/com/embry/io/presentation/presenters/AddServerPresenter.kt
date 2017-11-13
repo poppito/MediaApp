@@ -25,13 +25,10 @@ class AddServerPresenter @Inject constructor(val mediaServerRepo: MediaServerRep
 
 
     fun handleAddServerButtonClick(ip: String, username: String, password: String, name: String) {
-        mVerifyDisposable = mediaServerRepo.addMediaServer(ip, username, password, name)
+        mVerifyDisposable = mediaServerRepo.verifyAddServer(ip, username, password, name)
                 .subscribe(
                         {
-                            it.forEach {
-                                Log.v("TAG", it.name.toString())
-                            }
-
+                            mView.navigateToLauncherWithSuccess(ip, username, password, name)
                         },
                         {
                             Log.v("TAG", it.message)
@@ -40,5 +37,6 @@ class AddServerPresenter @Inject constructor(val mediaServerRepo: MediaServerRep
     }
 
     interface ViewSurface {
+        fun navigateToLauncherWithSuccess(ip: String, username: String, password: String, name: String)
     }
 }

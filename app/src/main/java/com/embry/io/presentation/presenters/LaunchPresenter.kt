@@ -21,12 +21,13 @@ class LaunchPresenter @Inject constructor(val launcherUsecases: LauncherUsecases
         mView.navigateToAddServerDialog()
     }
 
-    fun handleAddDialogButtonClick(ip: String,
-                                   username: String,
-                                   password: String,
-                                   name: String) {
+    fun handleServerAdd(ip: String,
+                        username: String,
+                        password: String,
+                        name: String) {
         launcherUsecases.addMediaServer(ip, username, password, name)
     }
+
 
     override fun onStop(v: LauncherViewSurface) {
         mView = v
