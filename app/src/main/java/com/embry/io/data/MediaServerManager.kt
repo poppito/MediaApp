@@ -26,8 +26,11 @@ class MediaServerManager @Inject constructor(private val mediaServerDb: MediaSer
                 .subscribeOn(Schedulers.io())
     }
 
-    override fun getAllMediaServers() {
-        //ToDo dao update required.
+    override fun getAllMediaServers() : Observable<ArrayList<MediaServer>> {
+        return Observable.fromCallable {
+            mediaServerDb.mediaServerDao().getAllMediaServers()
+        }.observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
     }
 
     override fun removeMediaServer(name: String) {
@@ -39,7 +42,7 @@ class MediaServerManager @Inject constructor(private val mediaServerDb: MediaSer
                            password: String,
                            name: String) {
         Single.fromCallable {
-            addServer(MediaServer(ip, username, password, name))
+            addServer(MediaServer(0, ip, username, password, name))
         }.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
     }

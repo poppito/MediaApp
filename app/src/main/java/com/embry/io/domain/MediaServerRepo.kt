@@ -1,5 +1,6 @@
 package com.embry.io.domain
 
+import com.embry.io.data.MediaServer
 import io.reactivex.Observable
 import jcifs.smb.SmbFile
 
@@ -11,7 +12,7 @@ import jcifs.smb.SmbFile
  */
 interface MediaServerRepo {
     fun verifyAddServer(ip: String, username: String, password: String, name: String): Observable<Array<SmbFile>>
-    fun getAllMediaServers()
+    fun getAllMediaServers() : Observable<ArrayList<MediaServer>>
     fun removeMediaServer(name: String)
     fun addServer(ip: String,
                   username: String,
