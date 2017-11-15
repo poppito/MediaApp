@@ -1,7 +1,9 @@
 package com.embry.io.presentation.presenters
 
 import com.embry.io.base.BasePresenter
+import com.embry.io.data.MediaServer
 import com.embry.io.domain.LauncherUsecases
+import io.reactivex.disposables.Disposable
 import javax.inject.Inject
 
 /**
@@ -13,8 +15,22 @@ class LaunchPresenter @Inject constructor(val launcherUsecases: LauncherUsecases
 
     lateinit var mView: LauncherViewSurface
 
+    var serverListDisposable: Disposable? = null
+    var addServerDisposable : Disposable? = null
+
     override fun onStart(v: LauncherViewSurface) {
         mView = v
+
+        serverListDisposable = launcherUsecases.getAllMediaServers()
+                .subscribe(
+                        {if (it.isNotEmpty()) {
+                            mView.showAddServerButton(false)
+                            mView.showServerList(true)
+                            mView.showButtons(true)
+                            mView.renderServerList(it)
+                        }},
+                        {}
+                )
     }
 
     fun handleAddServerButtonClick() {
@@ -25,7 +41,9 @@ class LaunchPresenter @Inject constructor(val launcherUsecases: LauncherUsecases
                         username: String,
                         password: String,
                         name: String) {
-        launcherUsecases.addMediaServer(ip, username, password, name)
+        addServerDisposable = launcherUsecases.addMediaServer(ip, username, password, name)
+                .subscribe({mView.showServerAddedSnackbar() }
+                        ,{})
     }
 
 
@@ -34,6 +52,11 @@ class LaunchPresenter @Inject constructor(val launcherUsecases: LauncherUsecases
     }
 
     interface LauncherViewSurface {
+        fun showAddServerButton(show: Boolean)
         fun navigateToAddServerDialog()
+        fun renderServerList(list : List<MediaServer>)
+        fun showServerList(show: Boolean)
+        fun showButtons(show: Boolean)
+        fun showServerAddedSnackbar()
     }
 }

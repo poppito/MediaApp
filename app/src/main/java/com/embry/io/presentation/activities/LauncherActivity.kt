@@ -3,9 +3,13 @@ package com.embry.io.presentation.activities
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
+import android.view.View
+import android.widget.ArrayAdapter
 import com.embry.io.R
 import com.embry.io.app.YourMediaList
+import com.embry.io.data.MediaServer
 import com.embry.io.injection.ActivityModule
 import com.embry.io.injection.DaggerActivityComponent
 import com.embry.io.presentation.presenters.LaunchPresenter
@@ -77,6 +81,28 @@ class LauncherActivity : AppCompatActivity(), LaunchPresenter.LauncherViewSurfac
 
     override fun navigateToAddServerDialog() {
         startActivityForResult(Intent(this, AddServerActivity::class.java), RESULT_ADD_SERVER)
+    }
+
+    override fun renderServerList(list: List<MediaServer>) {
+        val adapter = ArrayAdapter<MediaServer>(this, android.R.layout.simple_list_item_1, android.R.id.text1, list)
+        list_servers.adapter = adapter
+    }
+
+    override fun showAddServerButton(show: Boolean) {
+        add_btn_container.visibility = if (show) View.VISIBLE else View.GONE
+    }
+
+    override fun showButtons(show: Boolean) {
+        layout_btn_container.visibility = if (show) View.VISIBLE else View.GONE
+    }
+
+    override fun showServerList(show: Boolean) {
+        list_servers.visibility = if (show) View.VISIBLE else View.GONE
+    }
+
+    override fun showServerAddedSnackbar() {
+        val sb = Snackbar.make(add_btn_container, "Server added", Snackbar.LENGTH_SHORT)
+        sb.show()
     }
 
     //endregion

@@ -16,4 +16,6 @@
     <string name="text_hint_password">password</string>
     <string name="activity_launcher_title">Add a server</string>
     <string name="txt_add_server">No NAS servers found. Please add one to get started. </string>
+    <string name="txt_add_a_server">Add server</string>
+    <string name="txt_delete_server">Delete server</string>
 </resources>

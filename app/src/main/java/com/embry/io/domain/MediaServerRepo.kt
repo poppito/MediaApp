@@ -2,6 +2,7 @@ package com.embry.io.domain
 
 import com.embry.io.data.MediaServer
 import io.reactivex.Observable
+import io.reactivex.Single
 import jcifs.smb.SmbFile
 
 /**
@@ -17,5 +18,5 @@ interface MediaServerRepo {
     fun addServer(ip: String,
                   username: String,
                   password: String,
-                  name: String)
+                  name: String) : Single<Unit>
 }

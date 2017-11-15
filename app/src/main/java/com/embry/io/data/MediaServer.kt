@@ -12,4 +12,9 @@ data class MediaServer(
         var ip: String,
         var username: String,
         var password: String,
-        var name: String)
+        var name: String) {
+
+    override fun toString(): String {
+        return String.format("%s (%s)", name, ip)
+    }
+}

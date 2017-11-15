@@ -40,8 +40,8 @@ class MediaServerManager @Inject constructor(private val mediaServerDb: MediaSer
     override fun addServer(ip: String,
                            username: String,
                            password: String,
-                           name: String) {
-        Single.fromCallable {
+                           name: String) : Single<Unit> {
+       return  Single.fromCallable {
             addServer(MediaServer(0, ip, username, password, name))
         }.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
