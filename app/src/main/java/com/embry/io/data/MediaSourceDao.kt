@@ -20,9 +20,6 @@ interface MediaSourceDao {
     @Delete
     fun deleteItem(item: MediaServer)
 
-    @Query("SELECT * from todoitems WHERE title LIKE :p0")
-    fun getMediaSourceByUri(title: String): MediaServer
-
-    @Query("SELECT * from todoitems")
+    @Query("SELECT * from mediaserver")
     fun getAllMediaSources() : List<MediaServer>
 }

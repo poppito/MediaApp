@@ -26,7 +26,7 @@ class MediaServerManager @Inject constructor(private val mediaServerDb: MediaSer
                 .subscribeOn(Schedulers.io())
     }
 
-    override fun getAllMediaServers() : Observable<ArrayList<MediaServer>> {
+    override fun getAllMediaServers() : Observable<List<MediaServer>> {
         return Observable.fromCallable {
             mediaServerDb.mediaServerDao().getAllMediaServers()
         }.observeOn(AndroidSchedulers.mainThread())

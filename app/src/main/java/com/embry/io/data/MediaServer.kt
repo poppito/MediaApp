@@ -7,10 +7,9 @@ import android.arch.persistence.room.PrimaryKey
  * @author harshoverseer
  */
 @Entity(tableName = "mediaserver")
-
 data class MediaServer(
-        @PrimaryKey(autoGenerate = true) private val id: Int,
-        private val ip: String,
-        private val username: String,
-        private val password: String,
-        private val name: String)
+        @PrimaryKey(autoGenerate = true)  var id: Int,
+        var ip: String,
+        var username: String,
+        var password: String,
+        var name: String)

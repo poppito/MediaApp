@@ -17,7 +17,5 @@ interface MediaServerDao {
     fun addMediaServer(server: MediaServer)
 
     @Query("SELECT * from mediaserver")
-    fun getAllMediaServers() : ArrayList<MediaServer>
-
-
+    fun getAllMediaServers() : List<MediaServer>
 }
