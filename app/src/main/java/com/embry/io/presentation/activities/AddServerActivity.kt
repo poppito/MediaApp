@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.View
 import com.embry.io.R
 import com.embry.io.app.YourMediaList
 import com.embry.io.injection.ActivityModule
@@ -95,6 +96,10 @@ class AddServerActivity : AppCompatActivity(), AddServerPresenter.ViewSurface, T
         returnIntent.putExtra(RESULT_NAME, name)
         setResult(Activity.RESULT_OK, returnIntent)
         finish()
+    }
+
+    override fun showLoadingState(show: Boolean) {
+        view_loading_state.visibility = if (show) View.VISIBLE else View.GONE
     }
 
     //endregion
