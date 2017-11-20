@@ -17,7 +17,7 @@ class MediaListPresenter @Inject constructor() : BasePresenter<MediaListPresente
         mView = v
     }
 
-    override fun onStop(v: MainViewSurface) {
+    override fun onStop() {
     }
 
     interface MainViewSurface {

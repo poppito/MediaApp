@@ -19,8 +19,8 @@ class AddServerPresenter @Inject constructor(val mediaServerRepo: MediaServerRep
         mView = v
     }
 
-    override fun onStop(v: ViewSurface) {
-        mView = v
+    override fun onStop() {
+        mVerifyDisposable?.dispose()
     }
 
 

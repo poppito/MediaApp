@@ -47,8 +47,9 @@ class LaunchPresenter @Inject constructor(val launcherUsecases: LauncherUsecases
     }
 
 
-    override fun onStop(v: LauncherViewSurface) {
-        mView = v
+    override fun onStop() {
+        addServerDisposable?.dispose()
+        serverListDisposable?.dispose()
     }
 
     interface LauncherViewSurface {
