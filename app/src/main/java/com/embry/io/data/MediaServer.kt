@@ -12,6 +12,7 @@ data class MediaServer(
         var ip: String,
         var username: String,
         var password: String,
+        var domain: String,
         var name: String) {
 
     override fun toString(): String {

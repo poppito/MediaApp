@@ -12,6 +12,7 @@
     <string name="btn_add_server">Add</string>
     <string name="title_dialog_add_server">Add a NAS server</string>
     <string name="text_hint_server_ip">server ip address</string>
+    <string name="text_hint_server_domain">Domain (optional)</string>
     <string name="text_hint_usernmae">username</string>
     <string name="text_hint_password">password</string>
     <string name="activity_launcher_title">Add a server</string>
