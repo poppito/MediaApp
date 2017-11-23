@@ -17,7 +17,7 @@ import javax.inject.Inject
 class MediaServerManager @Inject constructor(private val mediaServerDb: MediaServerDb) : MediaServerRepo {
 
     override fun verifyAddServer(ip: String, username: String, password: String, domain: String, name: String): Observable<Array<SmbFile>> {
-        val path = "smb://" + ip
+        val path = "smb://" + ip + "/"
         val auth = NtlmPasswordAuthentication(domain, username, password)
         val dir = SmbFile(path, auth)
         return Observable.fromCallable {
