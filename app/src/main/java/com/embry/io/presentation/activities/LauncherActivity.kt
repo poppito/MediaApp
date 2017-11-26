@@ -44,6 +44,7 @@ class LauncherActivity : AppCompatActivity(), LaunchPresenter.LauncherViewSurfac
                 var username = ""
                 var password = ""
                 var name = ""
+                var domain = ""
                 if (data?.getStringExtra(AddServerActivity.RESULT_IP) != null) {
                     ip = data.getStringExtra(AddServerActivity.RESULT_IP)
                 }
@@ -56,7 +57,10 @@ class LauncherActivity : AppCompatActivity(), LaunchPresenter.LauncherViewSurfac
                 if (data?.getStringExtra(AddServerActivity.RESULT_NAME) != null) {
                     name = data.getStringExtra(AddServerActivity.RESULT_NAME)
                 }
-                mPresenter.handleServerAdd(ip, username, password, name)
+                if (data?.getStringExtra(AddServerActivity.RESULT_DOMAIN) != null) {
+                    domain = data.getStringExtra(AddServerActivity.RESULT_DOMAIN)
+                }
+                mPresenter.handleServerAdd(ip, username, password, domain, name)
             }
         }
     }

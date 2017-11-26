@@ -1,5 +1,6 @@
 package com.embry.io.data
 
+import android.util.Log
 import com.embry.io.domain.MediaServerRepo
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -16,9 +17,9 @@ import javax.inject.Inject
  */
 class MediaServerManager @Inject constructor(private val mediaServerDb: MediaServerDb) : MediaServerRepo {
 
-    override fun verifyAddServer(ip: String, username: String, password: String, name: String): Observable<Array<SmbFile>> {
-        val path = "smb://" + ip
-        val auth = NtlmPasswordAuthentication(null, username, password)
+    override fun verifyAddServer(ip: String, username: String, password: String, domain: String, name: String): Observable<Array<SmbFile>> {
+        val path = "smb://" + ip + "/"
+        val auth = NtlmPasswordAuthentication(domain, username, password)
         val dir = SmbFile(path, auth)
         return Observable.fromCallable {
             verifyServer(dir)
@@ -40,9 +41,10 @@ class MediaServerManager @Inject constructor(private val mediaServerDb: MediaSer
     override fun addServer(ip: String,
                            username: String,
                            password: String,
+                           domain: String,
                            name: String) : Single<Unit> {
        return  Single.fromCallable {
-            addServer(MediaServer(0, ip, username, password, name))
+            addServer(MediaServer(0, ip, username, password, domain, name))
         }.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
     }
@@ -50,6 +52,7 @@ class MediaServerManager @Inject constructor(private val mediaServerDb: MediaSer
     //region private
 
     private fun verifyServer(dir: SmbFile): Array<SmbFile> {
+        dir.listFiles().forEach { Log.v("TAG", it.name) }
         return dir.listFiles()
     }
 

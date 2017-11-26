@@ -10,8 +10,8 @@ import javax.inject.Inject
  */
 class LauncherUsecases @Inject constructor(val mediaServerRepo: MediaServerRepo) {
 
-    fun addMediaServer(address: String, username: String, password: String, name: String) : Single<Unit> {
-        return mediaServerRepo.addServer(address, username, password, name)
+    fun addMediaServer(address: String, username: String, password: String, domain: String, name: String) : Single<Unit> {
+        return mediaServerRepo.addServer(address, username, password, domain, name)
     }
 
     fun getAllMediaServers() : Observable<List<MediaServer>> {

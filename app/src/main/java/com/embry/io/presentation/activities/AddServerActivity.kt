@@ -38,6 +38,7 @@ class AddServerActivity : AppCompatActivity(), AddServerPresenter.ViewSurface, T
         val RESULT_USERNAME = "username"
         val RESULT_PASSWORD = "password"
         val RESULT_NAME = "name"
+        val RESULT_DOMAIN = "domain"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,6 +58,7 @@ class AddServerActivity : AppCompatActivity(), AddServerPresenter.ViewSurface, T
             mPresenter.handleAddServerButtonClick(et_server_ip?.text?.toString()!!,
                     et_server_username?.text?.toString()!!,
                     et_server_password?.text?.toString()!!,
+                    et_server_domain?.text?.toString()!!,
                     et_server_name?.text?.toString()!!)
         }
     }
@@ -88,12 +90,13 @@ class AddServerActivity : AppCompatActivity(), AddServerPresenter.ViewSurface, T
 
     //region viewsurface
 
-    override fun navigateToLauncherWithSuccess(ip: String, username: String, password: String, name: String) {
+    override fun navigateToLauncherWithSuccess(ip: String, username: String, password: String, domain: String, name: String) {
         val returnIntent = Intent()
         returnIntent.putExtra(RESULT_IP, ip)
         returnIntent.putExtra(RESULT_USERNAME, username)
         returnIntent.putExtra(RESULT_PASSWORD, password)
         returnIntent.putExtra(RESULT_NAME, name)
+        returnIntent.putExtra(RESULT_DOMAIN, domain)
         setResult(Activity.RESULT_OK, returnIntent)
         finish()
     }

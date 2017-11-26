@@ -40,8 +40,9 @@ class LaunchPresenter @Inject constructor(val launcherUsecases: LauncherUsecases
     fun handleServerAdd(ip: String,
                         username: String,
                         password: String,
+                        domain: String,
                         name: String) {
-        addServerDisposable = launcherUsecases.addMediaServer(ip, username, password, name)
+        addServerDisposable = launcherUsecases.addMediaServer(ip, username, password, domain, name)
                 .subscribe({mView.showServerAddedSnackbar() }
                         ,{})
     }
