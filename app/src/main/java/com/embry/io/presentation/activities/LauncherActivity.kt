@@ -35,6 +35,7 @@ class LauncherActivity : AppCompatActivity(), LaunchPresenter.LauncherViewSurfac
         inject()
         mPresenter.onStart(this)
         btn_add_server.setOnClickListener { mPresenter.handleAddServerButtonClick() }
+        btn_add_a_server.setOnClickListener{ mPresenter.handleAddServerButtonClick() }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -88,7 +89,7 @@ class LauncherActivity : AppCompatActivity(), LaunchPresenter.LauncherViewSurfac
     }
 
     override fun renderServerList(list: List<MediaServer>) {
-        val adapter = ArrayAdapter<MediaServer>(this, android.R.layout.simple_list_item_1, android.R.id.text1, list)
+        val adapter = ArrayAdapter<MediaServer>(this, android.R.layout.simple_list_item_1, list)
         list_servers.adapter = adapter
     }
 
