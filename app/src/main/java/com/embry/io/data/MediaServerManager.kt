@@ -1,5 +1,6 @@
 package com.embry.io.data
 
+import android.util.Log
 import com.embry.io.domain.MediaServerRepo
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -51,6 +52,7 @@ class MediaServerManager @Inject constructor(private val mediaServerDb: MediaSer
     //region private
 
     private fun verifyServer(dir: SmbFile): Array<SmbFile> {
+        dir.listFiles().forEach { Log.v("TAG", it.name) }
         return dir.listFiles()
     }
 
