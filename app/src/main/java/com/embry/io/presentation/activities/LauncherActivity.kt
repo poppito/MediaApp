@@ -25,9 +25,11 @@ class LauncherActivity : AppCompatActivity(), LaunchPresenter.LauncherViewSurfac
     @Inject
     lateinit var mPresenter: LaunchPresenter
 
-    private val path = "smb://"
-
     private val RESULT_ADD_SERVER = 9001
+
+    private var serverAdapter: ArrayAdapter<MediaServer>? = null
+
+    private val serverId = "ServerId"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +38,9 @@ class LauncherActivity : AppCompatActivity(), LaunchPresenter.LauncherViewSurfac
         mPresenter.onStart(this)
         btn_add_server.setOnClickListener { mPresenter.handleAddServerButtonClick() }
         btn_add_a_server.setOnClickListener{ mPresenter.handleAddServerButtonClick() }
+        list_servers.setOnItemClickListener { parent, view, position, id ->
+            mPresenter.handleServerItemClick(serverAdapter?.getItem(position)?.id)
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -89,8 +94,8 @@ class LauncherActivity : AppCompatActivity(), LaunchPresenter.LauncherViewSurfac
     }
 
     override fun renderServerList(list: List<MediaServer>) {
-        val adapter = ArrayAdapter<MediaServer>(this, android.R.layout.simple_list_item_1, list)
-        list_servers.adapter = adapter
+        serverAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, list)
+        list_servers.adapter = serverAdapter
     }
 
     override fun showAddServerButton(show: Boolean) {
@@ -108,6 +113,12 @@ class LauncherActivity : AppCompatActivity(), LaunchPresenter.LauncherViewSurfac
     override fun showServerAddedSnackbar() {
         val sb = Snackbar.make(add_btn_container, "Server added", Snackbar.LENGTH_SHORT)
         sb.show()
+    }
+
+    override fun navigateToMediaList(id : Int) {
+        val intent = Intent(this, MediaListActivity::class.java)
+        intent.putExtra(serverId, id)
+        startActivity(intent)
     }
 
     //endregion

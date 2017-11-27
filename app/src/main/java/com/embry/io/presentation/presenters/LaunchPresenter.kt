@@ -47,6 +47,12 @@ class LaunchPresenter @Inject constructor(val launcherUsecases: LauncherUsecases
                         ,{})
     }
 
+    fun handleServerItemClick(serverId : Int?) {
+        if (serverId != null) {
+            mView.navigateToMediaList(serverId)
+        }
+    }
+
 
     override fun onStop() {
         addServerDisposable?.dispose()
@@ -60,5 +66,6 @@ class LaunchPresenter @Inject constructor(val launcherUsecases: LauncherUsecases
         fun showServerList(show: Boolean)
         fun showButtons(show: Boolean)
         fun showServerAddedSnackbar()
+        fun navigateToMediaList(id : Int)
     }
 }
