@@ -29,7 +29,9 @@ class LauncherActivity : AppCompatActivity(), LaunchPresenter.LauncherViewSurfac
 
     private var serverAdapter: ArrayAdapter<MediaServer>? = null
 
-    private val serverId = "ServerId"
+    companion object {
+        val serverId = "ServerId"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -37,7 +37,11 @@ class MediaListActivity : AppCompatActivity(), MainViewSurface {
         mPresenter.onStart(this)
         initialiseToolbar()
         initialiseDrawerLayout()
-        initialiseRecyclerView()
+        val index =  intent.getIntExtra(LauncherActivity.serverId, 19945)
+        if (index != 19945) {
+            initialiseRecyclerView(index)
+        }
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -83,7 +87,7 @@ class MediaListActivity : AppCompatActivity(), MainViewSurface {
         drawer_layout.addDrawerListener(actionBarDrawerToggle!!)
     }
 
-    private fun initialiseRecyclerView() {
+    private fun initialiseRecyclerView(id : Int) {
         view_recycler_playables.setHasFixedSize(true)
         mLayoutManager = LinearLayoutManager(this)
     }
