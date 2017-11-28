@@ -39,16 +39,19 @@ class LauncherActivity : AppCompatActivity(), LaunchPresenter.LauncherViewSurfac
         inject()
         mPresenter.onStart(this)
         btn_add_server.setOnClickListener { mPresenter.handleAddServerButtonClick() }
-        btn_add_a_server.setOnClickListener{ mPresenter.handleAddServerButtonClick() }
+        btn_add_a_server.setOnClickListener { mPresenter.handleAddServerButtonClick() }
         list_servers.setOnItemClickListener { parent, view, position, id ->
             mPresenter.handleServerItemClick(serverAdapter?.getItem(position)?.id)
+        }
+        if (supportActionBar != null) {
+            setSupportActionBar(toolbar_main)
         }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == RESULT_ADD_SERVER) {
             if (resultCode == Activity.RESULT_OK) {
-                var ip  = ""
+                var ip = ""
                 var username = ""
                 var password = ""
                 var name = ""
@@ -96,7 +99,7 @@ class LauncherActivity : AppCompatActivity(), LaunchPresenter.LauncherViewSurfac
     }
 
     override fun renderServerList(list: List<MediaServer>) {
-        serverAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, list)
+        serverAdapter = ArrayAdapter(this, R.layout.list_item_server, list)
         list_servers.adapter = serverAdapter
     }
 
@@ -117,7 +120,7 @@ class LauncherActivity : AppCompatActivity(), LaunchPresenter.LauncherViewSurfac
         sb.show()
     }
 
-    override fun navigateToMediaList(id : Int) {
+    override fun navigateToMediaList(id: Int) {
         val intent = Intent(this, MediaListActivity::class.java)
         intent.putExtra(serverId, id)
         startActivity(intent)
