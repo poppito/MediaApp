@@ -43,9 +43,6 @@ class LauncherActivity : AppCompatActivity(), LaunchPresenter.LauncherViewSurfac
         list_servers.setOnItemClickListener { parent, view, position, id ->
             mPresenter.handleServerItemClick(serverAdapter?.getItem(position)?.id)
         }
-        if (supportActionBar != null) {
-            setSupportActionBar(toolbar_main)
-        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

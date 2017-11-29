@@ -61,10 +61,7 @@ class AddServerActivity : AppCompatActivity(), AddServerPresenter.ViewSurface, T
                     et_server_domain?.text?.toString()!!,
                     et_server_name?.text?.toString()!!)
         }
-
-        setSupportActionBar(toolbar_main)
-        val toolbar = supportActionBar
-        toolbar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
 
