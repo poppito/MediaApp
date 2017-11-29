@@ -1,14 +1,11 @@
 package com.embry.io.presentation.activities;
 
-
 import android.os.Bundle
-import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.ArrayAdapter
 import com.embry.io.R
 import com.embry.io.app.YourMediaList
 import com.embry.io.injection.ActivityModule
@@ -23,10 +20,6 @@ class MediaListActivity : AppCompatActivity(), MainViewSurface {
     @Inject
     lateinit var mPresenter: MediaListPresenter
 
-    private val mDrawerItems = listOf("A", "B", "C", "D")
-
-    private var actionBarDrawerToggle : ActionBarDrawerToggle? = null
-
     private var mLayoutManager: RecyclerView.LayoutManager? = null
 
     // region lifecycle
@@ -35,12 +28,12 @@ class MediaListActivity : AppCompatActivity(), MainViewSurface {
         setContentView(R.layout.activity_main)
         inject()
         mPresenter.onStart(this)
-        initialiseToolbar()
-        initialiseDrawerLayout()
         val index =  intent.getIntExtra(LauncherActivity.serverId, 19945)
         if (index != 19945) {
             initialiseRecyclerView(index)
         }
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeButtonEnabled(true)
 
     }
 
@@ -73,19 +66,6 @@ class MediaListActivity : AppCompatActivity(), MainViewSurface {
                 .inject(this)
     }
 
-    private fun initialiseToolbar() {
-        setSupportActionBar(toolbar_main)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_toc_black_24px)
-        supportActionBar?.setHomeButtonEnabled(true)
-    }
-
-    private fun initialiseDrawerLayout() {
-        actionBarDrawerToggle = ActionBarDrawerToggle(this, drawer_layout, toolbar_main, R.string.title_drawer_open, R.string.title_activity_main)
-        val adapter = ArrayAdapter(this, R.layout.list_item_drawer, mDrawerItems)
-        list_drawer.adapter = adapter
-        drawer_layout.addDrawerListener(actionBarDrawerToggle!!)
-    }
 
     private fun initialiseRecyclerView(id : Int) {
         view_recycler_playables.setHasFixedSize(true)
