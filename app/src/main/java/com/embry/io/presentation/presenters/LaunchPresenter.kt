@@ -21,16 +21,7 @@ class LaunchPresenter @Inject constructor(val launcherUsecases: LauncherUsecases
     override fun onStart(v: LauncherViewSurface) {
         mView = v
 
-        serverListDisposable = launcherUsecases.getAllMediaServers()
-                .subscribe(
-                        {if (it.isNotEmpty()) {
-                            mView.showAddServerButton(false)
-                            mView.showServerList(true)
-                            mView.showButtons(true)
-                            mView.renderServerList(it)
-                        }},
-                        {}
-                )
+        showServerListIfAvailable()
     }
 
     fun handleAddServerButtonClick() {
@@ -42,10 +33,19 @@ class LaunchPresenter @Inject constructor(val launcherUsecases: LauncherUsecases
                         password: String,
                         domain: String,
                         name: String) {
+        mView.showLoadingState(true)
         addServerDisposable = launcherUsecases.addMediaServer(ip, username, password, domain, name)
-                .subscribe({mView.showServerAddedSnackbar() }
+                .doAfterTerminate{
+                    showServerListIfAvailable()
+                }
+                .subscribe({
+                    mView.showLoadingState(false)
+                    mView.showServerAddedSnackbar()
+                }
                         ,{})
     }
+
+
 
     fun handleServerItemClick(serverId : Int?) {
         if (serverId != null) {
@@ -59,6 +59,32 @@ class LaunchPresenter @Inject constructor(val launcherUsecases: LauncherUsecases
         serverListDisposable?.dispose()
     }
 
+    //region private
+
+   private fun showServerListIfAvailable() {
+       mView.showLoadingState(true)
+       serverListDisposable = launcherUsecases.getAllMediaServers()
+               .doOnTerminate {
+                   mView.showLoadingState(false)
+               }
+               .subscribe(
+                       {if (it.isNotEmpty()) {
+                           mView.showAddServerButton(false)
+                           mView.showServerList(true)
+                           mView.showButtons(true)
+                           mView.renderServerList(it)
+                       }
+                       else {
+                           mView.showAddServerButton(true)
+                           mView.showServerList(false)
+                           mView.showButtons(false)
+                       }},
+                       {}
+               )
+    }
+
+    //endregion
+
     interface LauncherViewSurface {
         fun showAddServerButton(show: Boolean)
         fun navigateToAddServerDialog()
@@ -67,5 +93,6 @@ class LaunchPresenter @Inject constructor(val launcherUsecases: LauncherUsecases
         fun showButtons(show: Boolean)
         fun showServerAddedSnackbar()
         fun navigateToMediaList(id : Int)
+        fun showLoadingState(show: Boolean)
     }
 }

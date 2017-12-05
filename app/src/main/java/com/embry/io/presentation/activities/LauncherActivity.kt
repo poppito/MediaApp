@@ -25,7 +25,7 @@ class LauncherActivity : AppCompatActivity(), LaunchPresenter.LauncherViewSurfac
     @Inject
     lateinit var mPresenter: LaunchPresenter
 
-    private val RESULT_ADD_SERVER = 9001
+    private val requestAddServer = 9001
 
     private var serverAdapter: ArrayAdapter<MediaServer>? = null
 
@@ -46,7 +46,7 @@ class LauncherActivity : AppCompatActivity(), LaunchPresenter.LauncherViewSurfac
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == RESULT_ADD_SERVER) {
+        if (requestCode == requestAddServer) {
             if (resultCode == Activity.RESULT_OK) {
                 var ip = ""
                 var username = ""
@@ -92,7 +92,7 @@ class LauncherActivity : AppCompatActivity(), LaunchPresenter.LauncherViewSurfac
     //region viewsurface
 
     override fun navigateToAddServerDialog() {
-        startActivityForResult(Intent(this, AddServerActivity::class.java), RESULT_ADD_SERVER)
+        startActivityForResult(Intent(this, AddServerActivity::class.java), requestAddServer)
     }
 
     override fun renderServerList(list: List<MediaServer>) {
@@ -122,6 +122,11 @@ class LauncherActivity : AppCompatActivity(), LaunchPresenter.LauncherViewSurfac
         intent.putExtra(serverId, id)
         startActivity(intent)
     }
+
+    override fun showLoadingState(show: Boolean) {
+        progess_bar_launcher.visibility = if (show) View.VISIBLE else View.GONE
+    }
+
 
     //endregion
 
