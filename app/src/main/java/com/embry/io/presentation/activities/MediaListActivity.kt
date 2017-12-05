@@ -12,7 +12,7 @@ import com.embry.io.injection.ActivityModule
 import com.embry.io.injection.DaggerActivityComponent
 import com.embry.io.presentation.presenters.MediaListPresenter
 import com.embry.io.presentation.presenters.MediaListPresenter.MainViewSurface
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_media_list.*
 import javax.inject.Inject
 
 class MediaListActivity : AppCompatActivity(), MainViewSurface {
@@ -25,7 +25,7 @@ class MediaListActivity : AppCompatActivity(), MainViewSurface {
     // region lifecycle
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_media_list)
         inject()
         mPresenter.onStart(this)
         val index =  intent.getIntExtra(LauncherActivity.serverId, 19945)
@@ -33,8 +33,6 @@ class MediaListActivity : AppCompatActivity(), MainViewSurface {
             initialiseRecyclerView(index)
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setHomeButtonEnabled(true)
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -45,6 +43,10 @@ class MediaListActivity : AppCompatActivity(), MainViewSurface {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             R.id.item_menu_main_cast -> {
+                return true
+            }
+            android.R.id.home -> {
+                onBackPressed()
                 return true
             }
             else -> {
