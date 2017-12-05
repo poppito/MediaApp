@@ -61,6 +61,7 @@ class AddServerActivity : AppCompatActivity(), AddServerPresenter.ViewSurface, T
                     et_server_domain?.text?.toString()!!,
                     et_server_name?.text?.toString()!!)
         }
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
 

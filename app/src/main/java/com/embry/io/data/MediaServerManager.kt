@@ -18,9 +18,8 @@ import javax.inject.Inject
 class MediaServerManager @Inject constructor(private val mediaServerDb: MediaServerDb) : MediaServerRepo {
 
     override fun verifyAddServer(ip: String, username: String, password: String, domain: String, name: String): Observable<Array<SmbFile>> {
-        val path = "smb://" + ip + "/"
         val auth = NtlmPasswordAuthentication(domain, username, password)
-        val dir = SmbFile(path, auth)
+        val dir = SmbFile(sanitisePath(ip), auth)
         return Observable.fromCallable {
             verifyServer(dir)
         }.observeOn(AndroidSchedulers.mainThread())
@@ -58,6 +57,13 @@ class MediaServerManager @Inject constructor(private val mediaServerDb: MediaSer
 
     private fun addServer(server: MediaServer) {
         mediaServerDb.mediaServerDao().addMediaServer(server)
+    }
+
+    private fun sanitisePath(ip: String) : String {
+        if (!ip.toLowerCase().startsWith("smb://") || (!ip.toLowerCase().startsWith("cifs://"))) {
+            return String.format("%s%s", "smb://", ip)
+        }
+        return ip;
     }
 
     //endregion

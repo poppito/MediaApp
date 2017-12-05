@@ -25,9 +25,13 @@ class LauncherActivity : AppCompatActivity(), LaunchPresenter.LauncherViewSurfac
     @Inject
     lateinit var mPresenter: LaunchPresenter
 
-    private val path = "smb://"
+    private val requestAddServer = 9001
 
-    private val RESULT_ADD_SERVER = 9001
+    private var serverAdapter: ArrayAdapter<MediaServer>? = null
+
+    companion object {
+        val serverId = "ServerId"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,12 +39,16 @@ class LauncherActivity : AppCompatActivity(), LaunchPresenter.LauncherViewSurfac
         inject()
         mPresenter.onStart(this)
         btn_add_server.setOnClickListener { mPresenter.handleAddServerButtonClick() }
+        btn_add_a_server.setOnClickListener { mPresenter.handleAddServerButtonClick() }
+        list_servers.setOnItemClickListener { parent, view, position, id ->
+            mPresenter.handleServerItemClick(serverAdapter?.getItem(position)?.id)
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == RESULT_ADD_SERVER) {
+        if (requestCode == requestAddServer) {
             if (resultCode == Activity.RESULT_OK) {
-                var ip  = ""
+                var ip = ""
                 var username = ""
                 var password = ""
                 var name = ""
@@ -84,12 +92,12 @@ class LauncherActivity : AppCompatActivity(), LaunchPresenter.LauncherViewSurfac
     //region viewsurface
 
     override fun navigateToAddServerDialog() {
-        startActivityForResult(Intent(this, AddServerActivity::class.java), RESULT_ADD_SERVER)
+        startActivityForResult(Intent(this, AddServerActivity::class.java), requestAddServer)
     }
 
     override fun renderServerList(list: List<MediaServer>) {
-        val adapter = ArrayAdapter<MediaServer>(this, android.R.layout.simple_list_item_1, android.R.id.text1, list)
-        list_servers.adapter = adapter
+        serverAdapter = ArrayAdapter(this, R.layout.list_item_server, list)
+        list_servers.adapter = serverAdapter
     }
 
     override fun showAddServerButton(show: Boolean) {
@@ -108,6 +116,17 @@ class LauncherActivity : AppCompatActivity(), LaunchPresenter.LauncherViewSurfac
         val sb = Snackbar.make(add_btn_container, "Server added", Snackbar.LENGTH_SHORT)
         sb.show()
     }
+
+    override fun navigateToMediaList(id: Int) {
+        val intent = Intent(this, MediaListActivity::class.java)
+        intent.putExtra(serverId, id)
+        startActivity(intent)
+    }
+
+    override fun showLoadingState(show: Boolean) {
+        progess_bar_launcher.visibility = if (show) View.VISIBLE else View.GONE
+    }
+
 
     //endregion
 
