@@ -70,7 +70,7 @@ class MediaListActivity : AppCompatActivity(), MainViewSurface {
     override fun renderFileList(mediaList: Array<SmbFile>) {
         val mediaFileList = arrayListOf<MediaFile>()
         mediaList.forEach {
-            mediaFileList.add(MediaFile(it.name, "meh"))
+            mediaFileList.add(MediaFile(it.isDirectory, it.name, "meh"))
         }
         mLayoutManager = LinearLayoutManager(this)
         val adapter  = MediaFileListAdapter(mediaFileList)
