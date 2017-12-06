@@ -72,9 +72,10 @@ class MediaListActivity : AppCompatActivity(), MainViewSurface {
         mediaList.forEach {
             mediaFileList.add(MediaFile(it.name, "meh"))
         }
-        val adapter  = MediaFileListAdapter(mediaFileList)
-        view_recycler_playables.setHasFixedSize(true)
         mLayoutManager = LinearLayoutManager(this)
+        val adapter  = MediaFileListAdapter(mediaFileList)
+        view_recycler_playables.layoutManager = mLayoutManager
+        view_recycler_playables.setHasFixedSize(true)
         view_recycler_playables.adapter = adapter
         adapter.notifyDataSetChanged()
     }

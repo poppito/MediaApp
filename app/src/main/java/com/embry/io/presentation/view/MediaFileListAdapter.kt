@@ -14,19 +14,20 @@ import com.embry.io.data.MediaFile
  *
  * @author harshoverseer
  */
-class MediaFileListAdapter(val fileList : ArrayList<MediaFile>) : RecyclerView.Adapter<MediaFileListAdapter.MediaListViewholder>() {
+class MediaFileListAdapter(var fileList : ArrayList<MediaFile>) : RecyclerView.Adapter<MediaFileListAdapter.MediaListViewholder>() {
+
+    private val mFileList = fileList
 
     override fun onBindViewHolder(holder: MediaListViewholder?, position: Int) {
-        holder?.fileTitle?.text = fileList[position].name
+        holder?.fileTitle?.text = mFileList[position].name
     }
 
     override fun getItemCount(): Int {
-        return fileList.size
+        return mFileList.size
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): MediaListViewholder {
         val itemView = LayoutInflater.from(parent?.context).inflate(R.layout.media_list_row, parent!!, false)
-
         return MediaListViewholder(itemView)
     }
 
