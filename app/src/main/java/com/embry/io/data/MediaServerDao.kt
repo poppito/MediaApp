@@ -18,4 +18,7 @@ interface MediaServerDao {
 
     @Query("SELECT * from mediaserver")
     fun getAllMediaServers() : List<MediaServer>
+
+    @Query("SELECT * from mediaserver WHERE id LIKE :p0")
+    fun getMediaServerById(id : Int?) : MediaServer
 }

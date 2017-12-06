@@ -54,12 +54,23 @@ class AddServerActivity : AppCompatActivity(), AddServerPresenter.ViewSurface, T
 
         mPresenter.onStart(this)
 
+        checkbox_guest_account.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                et_server_username.visibility = View.GONE
+                et_server_password.visibility = View.GONE
+            } else {
+                et_server_password.visibility = View.VISIBLE
+                et_server_username.visibility = View.VISIBLE
+            }
+        }
+
         btn_dialog_add_server?.setOnClickListener {
             mPresenter.handleAddServerButtonClick(et_server_ip?.text?.toString()!!,
                     et_server_username?.text?.toString()!!,
                     et_server_password?.text?.toString()!!,
                     et_server_domain?.text?.toString()!!,
-                    et_server_name?.text?.toString()!!)
+                    et_server_name?.text?.toString()!!,
+                    checkbox_guest_account.isChecked)
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
@@ -80,7 +91,7 @@ class AddServerActivity : AppCompatActivity(), AddServerPresenter.ViewSurface, T
         }
 
         btn_dialog_add_server.isEnabled =
-                if (ipFilled && nameFilled && usernameFilled && passwordFilled) true else false
+                if (ipFilled && nameFilled && ((usernameFilled && passwordFilled) || checkbox_guest_account.isChecked)) true else false
     }
 
     override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {

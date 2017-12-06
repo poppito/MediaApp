@@ -95,6 +95,12 @@ class LauncherActivity : AppCompatActivity(), LaunchPresenter.LauncherViewSurfac
         startActivityForResult(Intent(this, AddServerActivity::class.java), requestAddServer)
     }
 
+    override fun navigateToMediaList(id: Int) {
+        val intent = Intent(this, MediaListActivity::class.java)
+        intent.putExtra(serverId, id)
+        startActivity(intent)
+    }
+
     override fun renderServerList(list: List<MediaServer>) {
         serverAdapter = ArrayAdapter(this, R.layout.list_item_server, list)
         list_servers.adapter = serverAdapter
@@ -117,11 +123,6 @@ class LauncherActivity : AppCompatActivity(), LaunchPresenter.LauncherViewSurfac
         sb.show()
     }
 
-    override fun navigateToMediaList(id: Int) {
-        val intent = Intent(this, MediaListActivity::class.java)
-        intent.putExtra(serverId, id)
-        startActivity(intent)
-    }
 
     override fun showLoadingState(show: Boolean) {
         progess_bar_launcher.visibility = if (show) View.VISIBLE else View.GONE

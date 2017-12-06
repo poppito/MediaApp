@@ -2,7 +2,7 @@ package com.embry.io.presentation.presenters
 
 import com.embry.io.base.BasePresenter
 import com.embry.io.data.MediaServer
-import com.embry.io.domain.LauncherUsecases
+import com.embry.io.domain.MediaServerUsecases
 import io.reactivex.disposables.Disposable
 import javax.inject.Inject
 
@@ -11,7 +11,7 @@ import javax.inject.Inject
  *
  * @author harshoverseer
  */
-class LaunchPresenter @Inject constructor(val launcherUsecases: LauncherUsecases) : BasePresenter<LaunchPresenter.LauncherViewSurface>() {
+class LaunchPresenter @Inject constructor(val launcherUsecases: MediaServerUsecases) : BasePresenter<LaunchPresenter.LauncherViewSurface>() {
 
     lateinit var mView: LauncherViewSurface
 

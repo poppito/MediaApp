@@ -12,12 +12,16 @@
     <!-- launcher activity -->
     <string name="btn_add_server">Add</string>
     <string name="title_dialog_add_server">Add a NAS server</string>
-    <string name="text_hint_server_ip">server ip address</string>
-    <string name="text_hint_server_domain">Domain (optional)</string>
-    <string name="text_hint_usernmae">username</string>
-    <string name="text_hint_password">password</string>
     <string name="activity_launcher_title">Add a server</string>
     <string name="txt_add_server">No NAS servers found. Please add one to get started. </string>
     <string name="txt_add_a_server">Add server</string>
     <string name="txt_delete_server">Delete server</string>
+
+    <!--- Add server activity -->
+    <string name="text_hint_server_ip">server ip address</string>
+    <string name="text_hint_server_domain">Domain (optional)</string>
+    <string name="text_hint_usernmae">username</string>
+    <string name="text_hint_password">password</string>
+    <string name="txt_guest_ac_checkbox">Use a guest account instead</string>
+
 </resources>

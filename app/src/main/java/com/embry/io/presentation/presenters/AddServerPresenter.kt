@@ -24,15 +24,28 @@ class AddServerPresenter @Inject constructor(val mediaServerRepo: MediaServerRep
     }
 
 
-    fun handleAddServerButtonClick(ip: String, username: String, password: String, domain: String, name: String) {
+    fun handleAddServerButtonClick(ip: String,
+                                   username: String,
+                                   password: String,
+                                   domain: String,
+                                   name: String,
+                                   guestCheckBox : Boolean) {
+
+        var usernameToSend = username
+        var passwordToSend = password
+        if (guestCheckBox) {
+            usernameToSend = "guest"
+            passwordToSend = ""
+        }
+
         mView.showLoadingState(true)
-        mVerifyDisposable = mediaServerRepo.verifyAddServer(ip, username, password, domain, name)
+        mVerifyDisposable = mediaServerRepo.verifyAddServer(ip, usernameToSend, passwordToSend, domain, name)
                 .doOnTerminate {
                     mView.showLoadingState(false)
                 }
                 .subscribe(
                         {
-                            mView.navigateToLauncherWithSuccess(ip, username, password, domain, name)
+                            mView.navigateToLauncherWithSuccess(ip, usernameToSend, passwordToSend, domain, name)
                         },
                         {
                             Log.v("TAG", it.message)

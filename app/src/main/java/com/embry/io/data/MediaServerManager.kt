@@ -33,6 +33,21 @@ class MediaServerManager @Inject constructor(private val mediaServerDb: MediaSer
                 .subscribeOn(Schedulers.io())
     }
 
+
+    override fun getMediaServerById(id: Int?): Single<MediaServer> {
+        return Single.fromCallable({ mediaServerDb.mediaServerDao().getMediaServerById(id) })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+    }
+
+    override fun connectToMediaServer(server : MediaServer): Single<Array<SmbFile>> {
+        val  auth = NtlmPasswordAuthentication(server.domain, server.username, server.password)
+        val dir = SmbFile(sanitisePath(server.ip), auth)
+        return Single.fromCallable{verifyServer(dir)}
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+    }
+
     override fun removeMediaServer(name: String) {
         //ToDo dao update required.
     }

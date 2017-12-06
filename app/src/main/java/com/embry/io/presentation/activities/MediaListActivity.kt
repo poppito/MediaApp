@@ -1,4 +1,4 @@
-package com.embry.io.presentation.activities;
+package com.embry.io.presentation.activities
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -6,12 +6,16 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import com.embry.io.R
 import com.embry.io.app.YourMediaList
+import com.embry.io.data.MediaFile
 import com.embry.io.injection.ActivityModule
 import com.embry.io.injection.DaggerActivityComponent
 import com.embry.io.presentation.presenters.MediaListPresenter
 import com.embry.io.presentation.presenters.MediaListPresenter.MainViewSurface
+import com.embry.io.presentation.view.MediaFileListAdapter
+import jcifs.smb.SmbFile
 import kotlinx.android.synthetic.main.activity_media_list.*
 import javax.inject.Inject
 
@@ -30,7 +34,7 @@ class MediaListActivity : AppCompatActivity(), MainViewSurface {
         mPresenter.onStart(this)
         val index =  intent.getIntExtra(LauncherActivity.serverId, 19945)
         if (index != 19945) {
-            initialiseRecyclerView(index)
+            mPresenter.connectToServer(index)
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
@@ -57,6 +61,30 @@ class MediaListActivity : AppCompatActivity(), MainViewSurface {
 
     //end region
 
+    //region viewsurface
+
+    override fun showLoadingState(show: Boolean) {
+        progress_bar_media_list.visibility = if (show) View.VISIBLE else View.GONE
+    }
+
+    override fun renderFileList(mediaList: Array<SmbFile>) {
+        val mediaFileList = arrayListOf<MediaFile>()
+        mediaList.forEach {
+            mediaFileList.add(MediaFile(it.name, "meh"))
+        }
+        val adapter  = MediaFileListAdapter(mediaFileList)
+        view_recycler_playables.setHasFixedSize(true)
+        mLayoutManager = LinearLayoutManager(this)
+        view_recycler_playables.adapter = adapter
+        adapter.notifyDataSetChanged()
+    }
+
+    override fun showMediaList(show: Boolean) {
+        view_recycler_playables.visibility = if (show) View.VISIBLE else View.GONE
+    }
+
+    //endregion
+
     //region private
 
     private fun inject() {
@@ -66,12 +94,6 @@ class MediaListActivity : AppCompatActivity(), MainViewSurface {
                 .activityModule(ActivityModule(this))
                 .build()
                 .inject(this)
-    }
-
-
-    private fun initialiseRecyclerView(id : Int) {
-        view_recycler_playables.setHasFixedSize(true)
-        mLayoutManager = LinearLayoutManager(this)
     }
 
     //end region

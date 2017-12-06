@@ -12,12 +12,16 @@ import jcifs.smb.SmbFile
  * @author harshoverseer
  */
 interface MediaServerRepo {
-    fun verifyAddServer(ip: String, username: String, password: String, domain:String, name: String): Observable<Array<SmbFile>>
-    fun getAllMediaServers() : Observable<List<MediaServer>>
+    fun verifyAddServer(ip: String, username: String, password: String, domain: String, name: String): Observable<Array<SmbFile>>
+    fun getAllMediaServers(): Observable<List<MediaServer>>
     fun removeMediaServer(name: String)
     fun addServer(ip: String,
                   username: String,
                   password: String,
                   domain: String,
-                  name: String) : Single<Unit>
+                  name: String): Single<Unit>
+
+    fun connectToMediaServer(server: MediaServer): Single<Array<SmbFile>>
+
+    fun getMediaServerById(id: Int?): Single<MediaServer>
 }
