@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -19,7 +20,7 @@ import jcifs.smb.SmbFile
 import kotlinx.android.synthetic.main.activity_media_list.*
 import javax.inject.Inject
 
-class MediaListActivity : AppCompatActivity(), MainViewSurface {
+class MediaListActivity : AppCompatActivity(), MainViewSurface, MediaFileListAdapter.OnItemClickListener {
 
     @Inject
     lateinit var mPresenter: MediaListPresenter
@@ -73,7 +74,7 @@ class MediaListActivity : AppCompatActivity(), MainViewSurface {
             mediaFileList.add(MediaFile(it.isDirectory, it.name, "meh"))
         }
         mLayoutManager = LinearLayoutManager(this)
-        val adapter  = MediaFileListAdapter(mediaFileList)
+        val adapter  = MediaFileListAdapter(mediaFileList, this)
         view_recycler_playables.layoutManager = mLayoutManager
         view_recycler_playables.setHasFixedSize(true)
         view_recycler_playables.adapter = adapter
@@ -82,6 +83,14 @@ class MediaListActivity : AppCompatActivity(), MainViewSurface {
 
     override fun showMediaList(show: Boolean) {
         view_recycler_playables.visibility = if (show) View.VISIBLE else View.GONE
+    }
+
+    //endregion
+
+    //region
+
+    override fun onItemClick(file: MediaFile) {
+        Log.v("TAG", "file clicked is " + file.name)
     }
 
     //endregion
