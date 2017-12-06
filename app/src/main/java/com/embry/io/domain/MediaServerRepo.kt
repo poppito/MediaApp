@@ -23,5 +23,7 @@ interface MediaServerRepo {
 
     fun connectToMediaServer(server: MediaServer): Single<Array<SmbFile>>
 
-    fun getMediaServerById(id: Int?): Single<MediaServer>
+    fun getMediaServerById(id: Int): Single<MediaServer>
+
+    fun connectToMediaServer(server : MediaServer, path: String) : Single<Array<SmbFile>>
 }

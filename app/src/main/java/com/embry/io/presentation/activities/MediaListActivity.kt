@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -68,10 +67,10 @@ class MediaListActivity : AppCompatActivity(), MainViewSurface, MediaFileListAda
         progress_bar_media_list.visibility = if (show) View.VISIBLE else View.GONE
     }
 
-    override fun renderFileList(mediaList: Array<SmbFile>) {
+    override fun renderFileList(mediaList: Array<SmbFile>, id: Int) {
         val mediaFileList = arrayListOf<MediaFile>()
         mediaList.forEach {
-            mediaFileList.add(MediaFile(it.isDirectory, it.name, "meh"))
+            mediaFileList.add(MediaFile(it.isDirectory, it.name, "meh", id))
         }
         mLayoutManager = LinearLayoutManager(this)
         val adapter  = MediaFileListAdapter(mediaFileList, this)
@@ -90,7 +89,9 @@ class MediaListActivity : AppCompatActivity(), MainViewSurface, MediaFileListAda
     //region
 
     override fun onItemClick(file: MediaFile) {
-        Log.v("TAG", "file clicked is " + file.name)
+        if (file.isDirectory) {
+            mPresenter.handleFileItemClick(file)
+        }
     }
 
     //endregion

@@ -34,7 +34,7 @@ class MediaServerManager @Inject constructor(private val mediaServerDb: MediaSer
     }
 
 
-    override fun getMediaServerById(id: Int?): Single<MediaServer> {
+    override fun getMediaServerById(id: Int): Single<MediaServer> {
         return Single.fromCallable({ mediaServerDb.mediaServerDao().getMediaServerById(id) })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
@@ -43,6 +43,14 @@ class MediaServerManager @Inject constructor(private val mediaServerDb: MediaSer
     override fun connectToMediaServer(server : MediaServer): Single<Array<SmbFile>> {
         val  auth = NtlmPasswordAuthentication(server.domain, server.username, server.password)
         val dir = SmbFile(sanitisePath(server.ip), auth)
+        return Single.fromCallable{verifyServer(dir)}
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+    }
+
+    override fun connectToMediaServer(server : MediaServer, path: String): Single<Array<SmbFile>> {
+        val  auth = NtlmPasswordAuthentication(server.domain, server.username, server.password)
+        val dir = SmbFile(sanitisePath(server.ip + "/" + path), auth)
         return Single.fromCallable{verifyServer(dir)}
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

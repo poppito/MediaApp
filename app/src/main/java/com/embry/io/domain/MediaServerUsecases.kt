@@ -1,5 +1,6 @@
 package com.embry.io.domain
 
+import com.embry.io.data.MediaFile
 import com.embry.io.data.MediaServer
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -19,10 +20,17 @@ class MediaServerUsecases @Inject constructor(val mediaServerRepo: MediaServerRe
         return mediaServerRepo.getAllMediaServers()
     }
 
-    fun connectToServer(id : Int?) : Single<Array<SmbFile>> {
+    fun connectToServer(id : Int) : Single<Array<SmbFile>> {
        return  mediaServerRepo.getMediaServerById(id)
                 .flatMap {
                     mediaServerRepo.connectToMediaServer(it)
+                }
+    }
+
+    fun getFilesInFilePath(file: MediaFile): Single<Array<SmbFile>> {
+        return mediaServerRepo.getMediaServerById(file.serverId)
+                .flatMap {
+                    mediaServerRepo.connectToMediaServer(it, file.name)
                 }
     }
 }

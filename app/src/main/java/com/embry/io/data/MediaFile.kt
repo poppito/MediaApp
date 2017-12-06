@@ -5,4 +5,5 @@ package com.embry.io.data
  */
 data class MediaFile(var isDirectory: Boolean,
                      var name: String,
-                     var iconPath: String)
+                     var iconPath: String,
+                     var serverId : Int)
