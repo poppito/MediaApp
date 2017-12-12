@@ -4,9 +4,10 @@
     <string name="title_drawer_open">Your Media sources</string>
     <string name="title_launcher_activity">Casterly</string>
 
-    <!--- main activity menu -->
+    <!--- mediaList activity menu -->
     <string name="txt_cast">Cast</string>
     <string name="txt_cast_disconnect">Disconnect from Cast</string>
+    <string name="btn_back">Back</string>
 
 
     <!-- launcher activity -->

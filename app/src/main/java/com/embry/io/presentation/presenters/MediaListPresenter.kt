@@ -20,11 +20,16 @@ class MediaListPresenter @Inject constructor(val mediaServerUsecases: MediaServe
 
     var mServerConnectivityDisposable: Disposable? = null
 
+    private var previousPath = ""
+
     override fun onStart(v: MainViewSurface) {
         mView = v
+        handleBackButtonVisibility()
     }
 
     fun handleFileItemClick(file: MediaFile) {
+        previousPath = previousPath + ":" + file.name
+        handleBackButtonVisibility()
         mView.showLoadingState(true)
         mView.showMediaList(false)
         if (file.isDirectory) {
@@ -63,6 +68,21 @@ class MediaListPresenter @Inject constructor(val mediaServerUsecases: MediaServe
                 )
     }
 
+    fun handleBackButtonVisibility() {
+        if (previousPath.equals("")) {
+            mView.showBackButton(false)
+        } else {
+            mView.showBackButton(true)
+        }
+    }
+
+    fun handleBackButtonClick() {
+        val path = previousPath.split(":")
+        if (path.size > 0) {
+
+        }
+    }
+
     override fun onStop() {
     }
 
@@ -70,5 +90,6 @@ class MediaListPresenter @Inject constructor(val mediaServerUsecases: MediaServe
         fun renderFileList(mediaList: Array<SmbFile>, id: Int)
         fun showLoadingState(show: Boolean)
         fun showMediaList(show: Boolean)
+        fun showBackButton(show: Boolean)
     }
 }

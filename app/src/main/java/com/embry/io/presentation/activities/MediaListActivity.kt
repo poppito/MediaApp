@@ -37,6 +37,7 @@ class MediaListActivity : AppCompatActivity(), MainViewSurface, MediaFileListAda
             mPresenter.connectToServer(index)
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        btn_back.setOnClickListener { mPresenter.handleBackButtonClick() }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -84,9 +85,11 @@ class MediaListActivity : AppCompatActivity(), MainViewSurface, MediaFileListAda
         view_recycler_playables.visibility = if (show) View.VISIBLE else View.GONE
     }
 
-    //endregion
+    override fun showBackButton(show: Boolean) {
+        btn_back.visibility = if (show) View.VISIBLE else View.GONE
+    }
 
-    //region
+    //region onItemClick
 
     override fun onItemClick(file: MediaFile) {
         if (file.isDirectory) {
