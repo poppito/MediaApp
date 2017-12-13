@@ -22,6 +22,8 @@ class MediaListPresenter @Inject constructor(val mediaServerUsecases: MediaServe
 
     private var previousPath = ""
 
+    private var currentServerId : Int = 0
+
     override fun onStart(v: MainViewSurface) {
         mView = v
         handleBackButtonVisibility()
@@ -50,6 +52,7 @@ class MediaListPresenter @Inject constructor(val mediaServerUsecases: MediaServe
     }
 
     fun connectToServer(id: Int) {
+        currentServerId = id
         mView.showLoadingState(true)
         mServerConnectivityDisposable = mediaServerUsecases.connectToServer(id)
                 .doAfterTerminate {
@@ -78,8 +81,11 @@ class MediaListPresenter @Inject constructor(val mediaServerUsecases: MediaServe
 
     fun handleBackButtonClick() {
         val path = previousPath.split(":")
-        if (path.size > 0) {
+        if (path.size > 1) {
+            val newPath = path.get(path.size - 1)
 
+        } else {
+            mView.showBackButton(false)
         }
     }
 
